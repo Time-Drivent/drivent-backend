@@ -68,3 +68,28 @@ export async function changeBooking(req: AuthenticatedRequest, res: Response) {
   }
 }
 
+export async function UserBooking(req: AuthenticatedRequest, res: Response) {
+  try {
+    const { userId } = req;
+    const booking = await bookingService.getUserBooking(userId);
+    return res.status(httpStatus.OK).send({
+      bookingId: booking.id,
+      userId: booking.userId,
+      roomId: booking.roomId,
+      Room: {
+        id: booking.Room.id,
+        name: booking.Room.name,
+        capacity: booking.Room.capacity,
+        hotelId: booking.Room.hotelId,
+        Booking: booking.Room._count.Booking,
+        Hotel: {
+          id: booking.Room.Hotel.id,
+          name: booking.Room.Hotel.name,
+          image: booking.Room.Hotel.image,
+        },
+      },
+    });
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
