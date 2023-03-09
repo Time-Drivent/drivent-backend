@@ -64,7 +64,6 @@ async function getUserBooking(userId: number) {
   if (!booking) {
     throw notFoundError();
   }
-
   return booking;
 }
 
