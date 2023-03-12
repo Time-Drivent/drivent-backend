@@ -12,7 +12,7 @@ async function findHotels() {
           }
         },
         orderBy: {
-          id: 'asc',
+          id: "asc",
         },
       }
     }
