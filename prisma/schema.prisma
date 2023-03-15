@@ -140,7 +140,7 @@ model Booking {
   updatedAt DateTime @updatedAt
 }
 
-model Date {
+model Day {
   id Int @id @default(autoincrement())
   weekday String
   date DateTime
@@ -156,7 +156,7 @@ model Activity {
   endTime DateTime
   capacity Int
   dateId Int
-  Date Date @relation(fields: [dateId], references: [id])
+  Day Day @relation(fields: [dateId], references: [id])
   Reservation Reservation[]
   venueId Int
   Venue Venue @relation(fields: [venueId], references: [id])

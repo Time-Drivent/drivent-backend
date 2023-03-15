@@ -10,8 +10,8 @@ async function main() {
         title: "Driven.t",
         logoImageUrl: "https://files.driveneducation.com.br/images/logo-rounded.png",
         backgroundImageUrl: "linear-gradient(to right, #FA4098, #FFD77F)",
-        startsAt: dayjs().toISOString(),
-        endsAt: dayjs().add(21, "days").toISOString(),
+        startsAt: dayjs().toDate(),
+        endsAt: dayjs().add(21, "days").toDate(),
       },
     });
   }
@@ -134,21 +134,21 @@ async function main() {
     });
   }
 
-  let dates = await prisma.date.findMany();
+  let dates = await prisma.day.findMany();
   if (dates.length === 0) {
-    await prisma.date.createMany({
+    await prisma.day.createMany({
       data: [
         {
           weekday: "Sexta",
-          date: new Date(2023, 9, 22).toISOString(),
+          date: new Date(2023, 9, 22),
         },
         {
           weekday: "Sábado",
-          date: new Date(2023, 9, 23).toISOString(),
+          date: new Date(2023, 9, 23),
         },
         {
           weekday: "Domingo",
-          date: new Date(2023, 9, 24).toISOString(),
+          date: new Date(2023, 9, 24),
         },
       ],
     });
