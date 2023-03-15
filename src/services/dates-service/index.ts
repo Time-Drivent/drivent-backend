@@ -2,8 +2,8 @@ import { notFoundError } from "@/errors";
 import datesRepository from "@/repositories/date-repository";
 
 async function getDates() {
-  const dates = datesRepository.getDates();
-  if (!dates) throw notFoundError();
+  const dates = await datesRepository.getDates();
+  if (dates.length === 0) throw notFoundError();
   return dates;
 }
 

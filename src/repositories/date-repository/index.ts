@@ -1,7 +1,7 @@
 import { prisma } from "@/config";
 
 function getDates() {
-  return prisma.date.findMany();
+  return prisma.day.findMany();
 }
 
 const datesRepository = {

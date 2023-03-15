@@ -4,7 +4,7 @@ import httpStatus from "http-status";
 
 export async function getDates(req: Request, res: Response) {
   try {
-    const dates = datesService.getDates();
+    const dates = await datesService.getDates();
     return res.status(httpStatus.OK).send(dates);
   } catch (error) {
     if (error.name === "NotFoundError") return res.sendStatus(httpStatus.NOT_FOUND);
