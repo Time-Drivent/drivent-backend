@@ -3,12 +3,8 @@ import ticketRepository from "@/repositories/ticket-repository";
 import { notFoundError } from "@/errors";
 import { cannotListActivitiesError } from "@/errors/cannot-list-activities";
 import activityRepository from "@/repositories/activities-repository";
-import { createClient } from "redis";
+import { redisClient } from "../../utils/redis-service";
 import { eventDayType } from "@/protocols";
-
-const redisClient = createClient({
-  url: process.env.REDIS_URL,
-});
 
 async function getEventDays(userId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
@@ -65,9 +61,9 @@ async function getEvents(userId: number, eventDayId: number) {
   }
   
   const eventDay = await activityRepository.findEventDays();
-  const eventDayIds = eventDay.map((value: { id: unknown; }) => value.id);
+  const eventDayIds = eventDay.map(value => value.id);
   
-  const activities = await Promise.all(eventDayIds.map(async (value: number) =>  {
+  const activities = await Promise.all(eventDayIds.map(async (value) =>  {
     const result = await activityRepository.findEventsByEventsDayId(value);
     return { id: value, result };
   }
