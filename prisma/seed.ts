@@ -132,6 +132,8 @@ async function main() {
         },
       ],
     });
+
+    venues = await prisma.venue.findMany();
   }
 
   let dates = await prisma.day.findMany();
@@ -151,6 +153,72 @@ async function main() {
           date: new Date(2023, 9, 24),
         },
       ],
+    });
+
+    dates = await prisma.day.findMany();
+  }
+
+  let activities = await prisma.activity.findMany();
+  if (activities.length === 0) {
+    await prisma.activity.createMany({
+      data: [
+        {
+          name: "Minecraft: precisa montar o PC ideal?",
+          startTime: "2023-09-22T12:00:00.000Z",
+          endTime: "2023-09-22T13:00:00.000Z",
+          capacity: 30,
+          dateId: dates[0].id,
+          venueId: venues[0].id
+        },
+        {
+          name: "LoL: não gaste o seu PC ideal",
+          startTime: "2023-09-22T13:00:00.000Z",
+          endTime: "2023-09-22T14:00:00.000Z",
+          capacity: 1,
+          dateId: dates[0].id,
+          venueId: venues[0].id
+        },
+        {
+          name: "Palestra alfa",
+          startTime: "2023-09-22T12:00:00.000Z",
+          endTime: "2023-09-22T14:00:00.000Z",
+          capacity: 1,
+          dateId: dates[0].id,
+          venueId: venues[1].id
+        },
+        {
+          name: "Palestra beta",
+          startTime: "2023-09-22T12:00:00.000Z",
+          endTime: "2023-09-22T13:00:00.000Z",
+          capacity: 30,
+          dateId: dates[0].id,
+          venueId: venues[2].id
+        },
+        {
+          name: "Palestra gama",
+          startTime: "2023-09-22T13:00:00.000Z",
+          endTime: "2023-09-22T14:00:00.000Z",
+          capacity: 30,
+          dateId: dates[0].id,
+          venueId: venues[2].id
+        },
+        {
+          name: "Palestra delta",
+          startTime: "2023-09-23T12:00:00.000Z",
+          endTime: "2023-09-23T13:00:00.000Z",
+          capacity: 1,
+          dateId: dates[1].id,
+          venueId: venues[2].id
+        },
+        {
+          name: "Rejeite a modernidade, abrace o Super Nintendo",
+          startTime: "2023-09-24T12:00:00.000Z",
+          endTime: "2023-09-24T15:00:00.000Z",
+          capacity: 30,
+          dateId: dates[2].id,
+          venueId: venues[0].id
+        }
+      ]
     });
   }
 }

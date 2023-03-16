@@ -1,6 +1,8 @@
 import datesService from "@/services/dates-service";
+import activityService from "@/services/activities-service";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
+import { AuthenticatedRequest } from "@/middlewares";
 
 export async function getDates(req: Request, res: Response) {
   try {
@@ -9,5 +11,16 @@ export async function getDates(req: Request, res: Response) {
   } catch (error) {
     if (error.name === "NotFoundError") return res.sendStatus(httpStatus.NOT_FOUND);
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
+export async function getEvents(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const eventDayId = Number(req.query.eventDayId);
+  try {
+    const events = await activityService.getEvents(Number(userId), eventDayId);
+    return res.status(httpStatus.OK).send(events);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
