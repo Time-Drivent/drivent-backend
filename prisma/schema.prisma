@@ -156,6 +156,7 @@ model Activity {
   endTime DateTime
   capacity Int
   dateId Int
+  @@index([dateId])
   Day Day @relation(fields: [dateId], references: [id])
   Reservation Reservation[]
   venueId Int
