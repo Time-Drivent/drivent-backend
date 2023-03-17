@@ -1,3 +1,4 @@
+import { postActivityTicket } from "@/controllers/activities-controller";
 import { getDates, getEvents } from "@/controllers/dates-controller";
 import { authenticateToken } from "@/middlewares";
 import { Router } from "express";
@@ -8,6 +9,6 @@ datesRouter
   .all("/*", authenticateToken)
   .get("", getDates)
   .get("/events", getEvents)
-  .get("/activitiesBooking",);
+  .post("/",postActivityTicket);
 
 export { datesRouter };
