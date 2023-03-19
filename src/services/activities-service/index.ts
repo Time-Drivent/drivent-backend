@@ -43,15 +43,6 @@ async function getEvents(userId: number, eventDayId: number) {
   if (!events || events.length === 0) {
     throw notFoundError();
   }
-  
-  const eventDay = await activityRepository.findEventDays();
-  const eventDayIds = eventDay.map(value => value.id);
-  
-  const activities = await Promise.all(eventDayIds.map(async (value) =>  {
-    const result = await activityRepository.findEventsByEventsDayId(value);
-    return { id: value, result };
-  }
-  ));
 
   return events;
 }
