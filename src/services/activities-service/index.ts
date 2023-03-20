@@ -29,17 +29,19 @@ async function getEventDays(userId: number) {
 
 async function getEvents(userId: number, eventDayId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
+ 
   if (!enrollment) {
     throw notFoundError();
   }
-
+ 
   const ticket = await ticketRepository.findTicketByEnrollmentId(enrollment.id);
-
+  
   if (!ticket || ticket.status === "RESERVED") {
     throw notFoundError();
   }
 
   const events = await activityRepository.findEventsByEventsDayId(eventDayId);
+
   if (!events || events.length === 0) {
     throw notFoundError();
   }
@@ -69,7 +71,6 @@ async function createActivityTicket(activityId: number, userId: number) {
   const sameDayActivities = scheduledActivities.filter((value) => {
     return value.Activity.dateId === activity.dateId;
   });
-
 
   let timeConflict = false;
   for (let i = 0; sameDayActivities.length > i; i++) {
