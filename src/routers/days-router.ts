@@ -1,14 +1,14 @@
 import { postActivityTicket } from "@/controllers/activities-controller";
-import { getDates, getEvents } from "@/controllers/dates-controller";
+import { getDays, getEvents } from "@/controllers/days-controller";
 import { authenticateToken } from "@/middlewares";
 import { Router } from "express";
 
-const datesRouter = Router();
+const daysRouter = Router();
 
-datesRouter
+daysRouter
   .all("/*", authenticateToken)
-  .get("", getDates)
+  .get("", getDays)
   .get("/events", getEvents)
-  .post("/",postActivityTicket);
+  .post("/", postActivityTicket);
 
-export { datesRouter };
+export { daysRouter };
