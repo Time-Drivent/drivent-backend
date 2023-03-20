@@ -1,22 +1,22 @@
-import datesRepository from "@/repositories/date-repository";
-import datesService from "@/services/dates-service";
+import datesRepository from "@/repositories/day-repository";
+import datesService from "@/services/days-service";
 
 describe("datesService.GetDates", () => {
   it("Should return dates when everything is ok", () => {
-    jest.spyOn(datesRepository, "getDates").mockImplementationOnce((): any => {
+    jest.spyOn(datesRepository, "getDays").mockImplementationOnce((): any => {
       return [{ date: true }];
     });
 
-    const response = datesService.getDates();
+    const response = datesService.getDays();
 
     expect(response).toEqual(expect.not.arrayContaining([expect.not.objectContaining({ date: true })]));
   });
   it("Should throw error when no dates are found", () => {
-    jest.spyOn(datesRepository, "getDates").mockImplementationOnce((): any => {
+    jest.spyOn(datesRepository, "getDays").mockImplementationOnce((): any => {
       return [];
     });
 
-    const response = datesService.getDates();
+    const response = datesService.getDays();
 
     expect(response).rejects.toEqual({
       name: "NotFoundError",

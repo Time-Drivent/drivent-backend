@@ -1,12 +1,12 @@
-import datesService from "@/services/dates-service";
+import daysService from "@/services/days-service";
 import activityService from "@/services/activities-service";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import { AuthenticatedRequest } from "@/middlewares";
 
-export async function getDates(req: Request, res: Response) {
+export async function getDays(req: Request, res: Response) {
   try {
-    const dates = await datesService.getDates();
+    const dates = await daysService.getDays();
     return res.status(httpStatus.OK).send(dates);
   } catch (error) {
     if (error.name === "NotFoundError") return res.sendStatus(httpStatus.NOT_FOUND);
